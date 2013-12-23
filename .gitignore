@@ -4,77 +4,89 @@
 
 int test_str(char*str);
 void sort_chars(char *str1,char *str2,char*str);
+void change_case(char*str);
 
 void main()
  {
      int length1,length2,i=0;
      char *str1,*str2,*str;
 	printf("\n Enter lenghts of string1 and string2\n");
-  scanf("%d %d",&length1,&length2);
+    scanf("%d %d",&length1,&length2);
     
 	 str1=(char *)malloc(sizeof(char)*(length1+1));
-   str2=(char*)malloc(sizeof(char)*(length2+1));
+     str2=(char*)malloc(sizeof(char)*(length2+1));
 	 str=(char*)malloc(sizeof(char)*(length1+length2+1));	 
      
 	 printf("\nEnter String1:\n");
 	 fflush(stdin);
 	 gets(str1);
-   
-   printf("\nEnter String2:\n");
+     printf("\nEnter String2:\n");
 	 fflush(stdin);
 	 gets(str2);
    
     if((test_str(str1)&&test_str(str2))==1)
-	   {
-	   sort_chars(str1,str2,str);
-	   while(*(str+i))
-	     {
-	      printf("%c",*(str+i));
-		    i++;
-	      }
-	   }
+	 {
+	change_case(str1);
+	change_case(str2);
+    
+	sort_chars(str1,str2,str);
+	
+	while(*(str+i))
+	 {
+	    printf("%c",*(str+i));
+		i++;
+	  }
+	     }
 	 else 
 	 printf("\nInvalid String entered!\n");
 	
 	getch();
    }
-
 void sort_chars(char *str1,char *str2,char*str)
-    {
-		 int match[26]={0},i=0,j=0,k=0;
+     {
+		int match[26]={0},i=0,j=0,k=0;
        
-		 while(*(str1+i))
-		  {
-		    match[*(str1+i)-97]++;
-		    i++; 
-		    }
-       i=0;
-		 while(*(str2+i))
-		  {
-		    match[*(str2+i)-97]++;
-		    i++; 
+		while(*(str1+i))
+		 {
+		   match[*(str1+i)-97]++;
+		   i++; 
+		   }
+        i=0;
+		while(*(str2+i))
+		 {
+		   match[*(str2+i)-97]++;
+		   i++; 
 		   }   
-		 for(i=0;i<26;i++)
-		  {
+		for(i=0;i<26;i++)
+		 {
 		   j=match[i];
 		   while(j>0)
 		    {
 		     *(str+k)=i+97;
-			    k++;
-			    j--;
+			 k++;
+			 j--;
 		     }
 		   }
-        
-      *(str+k)='\0';
+        *(str+k)='\0';
          }
 
+void change_case(char *str)
+  {
+   int i=0;
+   while(*(str+i))
+    {
+      if(*(str+i)>=65&&*(str+i)<=91)
+        *(str+i)=*(str+i)+32;
+      i++;
+     }
+   }
 int test_str(char*str)
    {
-    int i=0;
+      int i=0;
 	  while(*(str+i))
 	    {
-	     if(!((*(str+i)>=65&&*(str+i)<=91)||(*(str+i)>=97&&*(str+i)<=123)))
-			 return(0);
+	      if(!((*(str+i)>=65&&*(str+i)<=91)||(*(str+i)>=97&&*(str+i)<=123)))
+			  return(0);
 	     i++;
 	     }
 	   return(1);   
